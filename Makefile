@@ -10,6 +10,3 @@ clean:
 
 test: build
 	./$(NAME) roar
-
-#json: clean
-#	$(CC) json.c -ljson-c -o json
