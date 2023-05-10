@@ -10,3 +10,6 @@ clean:
 
 test: build
 	./$(NAME) roar
+
+install: build
+	cp $(NAME) /usr/bin/$(NAME)

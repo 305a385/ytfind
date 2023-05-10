@@ -19,4 +19,4 @@ C libraries you need:
 
 ### Make:
 
-```make build```
+```sudo make install```
