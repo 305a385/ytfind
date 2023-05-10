@@ -15,7 +15,7 @@ Only tested with gcc compiler
 
 C libraries you need:
 * json-c
-
+* cURL
 
 ### Make:
 
