@@ -1,0 +1,3 @@
+CC=cc
+
+NAME=ytfind
