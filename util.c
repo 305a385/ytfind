@@ -6,8 +6,8 @@ size_t WriteMemoryCallback(void *contents, size_t size, size_t nmemb, void *user
 
 	char *ptr = realloc(mem->memory, mem->size + realsize + 1);
 	if(ptr == NULL) {
-	printf("error: not enough memory\n");
-	return 0;
+		printf("error: not enough memory\n");
+		return 0;
 	}
 
 	mem->memory = ptr;

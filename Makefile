@@ -9,7 +9,7 @@ clean:
 	rm -rf $(NAME) 
 
 test: build
-	./$(NAME) roar
+	./$(NAME) hello world
 
 install: build
 	cp $(NAME) /usr/bin/$(NAME)

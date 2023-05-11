@@ -17,10 +17,10 @@ int printTitles(void){
 	}
 
 	int n = json_object_array_length(root);
-	for (int i=0; i<n; i++) {
+	for (int i=1; i<n; i++) {
 		json_object *type = json_object_object_get(json_object_array_get_idx(root, i), "type");
 		//make sure a video is being chosen (not a channel, playlist, etc)
-		if(! strcmp(json_object_get_string(type), "video")){
+		if(! strcmp(json_object_get_string(type), "video")) {
 			json_object *title = json_object_object_get(json_object_array_get_idx(root, i), "title");
 			json_object *videoId = json_object_object_get(json_object_array_get_idx(root, i), "videoId");
 			
@@ -32,19 +32,26 @@ int printTitles(void){
 }
 
 int main(int argc, char *argv[]) {
-	if( argc != 2 ) {
+	if( argc < 2 ) {
 		printf("usage: try './%s [query]' to make a get request.\n", NAME);
 		return 1;
 	}
-	
-	char query[] = "https://invidious.projectsegfau.lt/api/v1/search?q=";
-	strcat(query, argv[1]);
 
+
+	char query[] = "https://invidious.projectsegfau.lt/api/v1/search?q=";
+	/* add all arguments to query */
+	for (short i=1; i < argc; i++){
+		/* add space before current argument if not first argument*/
+		if (i != 1) {
+			strcat(query, "%20");
+		}
+		strcat(query, argv[i]);
+	}
 	CURL *curl_handle;
 	CURLcode res;
 
 	struct MemoryStruct chunk;
-	chunk.memory = malloc(1);	
+	chunk.memory = malloc(1);
 	chunk.size = 0;
 
 	curl_handle = curl_easy_init();
@@ -60,7 +67,9 @@ int main(int argc, char *argv[]) {
 		if(res != CURLE_OK) {
 			fprintf(stderr, "error: %s\n", curl_easy_strerror(res));
 		} else {
-			// create pointer to QUERY_RESULT_FILE (where the query will be stored, you can change the value in config.h)
+			/* create pointer to QUERY_RESULT_FILE
+			 * (where the query will be stored,
+			 * you can change the value in config.h) */
 			FILE *tmpFilePtr = fopen(QUERY_RESULT_FILE,"w");
 			fprintf(tmpFilePtr, "%s", chunk.memory);
 			fclose(tmpFilePtr);
@@ -69,8 +78,7 @@ int main(int argc, char *argv[]) {
 		curl_easy_cleanup(curl_handle);
 		free(chunk.memory);
 		
-
-		//print titles of videos to stdout
+		/* print titles of videos to stdout */
 		printTitles();
 	}
 	return 0;
