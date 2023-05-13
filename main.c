@@ -23,8 +23,9 @@ int printTitles(void){
 		if(! strcmp(json_object_get_string(type), "video")) {
 			json_object *title = json_object_object_get(json_object_array_get_idx(root, i), "title");
 			json_object *videoId = json_object_object_get(json_object_array_get_idx(root, i), "videoId");
+			json_object *author = json_object_object_get(json_object_array_get_idx(root, i), "author");
 			
-			printf("%s\n%s\n\n", json_object_get_string(title), json_object_get_string(videoId));
+			printf("%s\n%s\n%s\n\n", json_object_get_string(title), json_object_get_string(author), json_object_get_string(videoId));
 		}
 	}
 	json_object_put(root);
