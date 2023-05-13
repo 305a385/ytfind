@@ -25,7 +25,7 @@ int printTitles(void){
 			json_object *videoId = json_object_object_get(json_object_array_get_idx(root, i), "videoId");
 			json_object *author = json_object_object_get(json_object_array_get_idx(root, i), "author");
 			
-			printf("%s\n%s\n%s\n\n", json_object_get_string(title), json_object_get_string(author), json_object_get_string(videoId));
+			printf("Title: %s\nAuthor: %s\nID: %s\n\n", json_object_get_string(title), json_object_get_string(author), json_object_get_string(videoId));
 		}
 	}
 	json_object_put(root);
