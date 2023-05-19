@@ -1,4 +1,2 @@
 # ignore binaries
 ytfind
-# ignore AUR packages
-PKGBUILD

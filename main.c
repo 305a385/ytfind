@@ -10,6 +10,7 @@
 #include <json-c/json.h>
 #include <string.h>
 
+
 int printTitles(void){
 	json_object *root = json_object_from_file(QUERY_RESULT_FILE);
 	if (!root) {
@@ -33,13 +34,20 @@ int printTitles(void){
 }
 
 int main(int argc, char *argv[]) {
+	
 	if( argc < 2 ) {
-		printf("usage: try './%s [query]' to make a get request.\n", NAME);
+		printf("usage: try '%s [query]' to make a search.\n", NAME);
 		return 1;
 	}
-
-
-	char query[] = "https://invidious.projectsegfau.lt/api/v1/search?q=";
+	char *query;
+	query = (char*) malloc(sizeof(char*) * (sizeof(*argv) + sizeof(INSTANCE)));
+	strcat(query, INSTANCE);
+	
+	/* if memory cannot be allocated */
+	if(query == NULL) {
+		printf("Error! memory not allocated.");
+		exit(0);
+	}
 	/* add all arguments to query */
 	for (short i=1; i < argc; i++){
 		/* add space before current argument if not first argument*/
@@ -68,7 +76,7 @@ int main(int argc, char *argv[]) {
 		if(res != CURLE_OK) {
 			fprintf(stderr, "error: %s\n", curl_easy_strerror(res));
 		} else {
-			/* create pointer to QUERY_RESULT_FILE
+			/* create pointer to query_RESULT_FILE
 			 * (where the query will be stored,
 			 * you can change the value in config.h) */
 			FILE *tmpFilePtr = fopen(QUERY_RESULT_FILE,"w");
@@ -78,10 +86,13 @@ int main(int argc, char *argv[]) {
 
 		curl_easy_cleanup(curl_handle);
 		free(chunk.memory);
-		
+		/* dealocate memory for query */
+		free(query);
+
 		/* print titles of videos to stdout */
-		printTitles();
+		 printTitles();
 	}
+
 	return 0;
 }
 
