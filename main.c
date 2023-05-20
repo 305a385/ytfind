@@ -11,7 +11,6 @@
 #include "util.h"
 #include "config.h"
 
-
 int printTitles(void){
 	json_object *root = json_object_from_file(QUERY_RESULT_FILE);
 	if (!root) {
@@ -45,7 +44,6 @@ int main(int argc, char *argv[]) {
 	/* get random instance */
 	srand(time(NULL));
 	const char *INSTANCE = (INSTANCES[rand() % ARR_SIZE(INSTANCES)]);
-	printf("using instance %s\n", INSTANCE);
 	
 	/* if memory cannot be allocated */
 	if(INSTANCE == NULL) {
