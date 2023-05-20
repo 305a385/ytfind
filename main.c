@@ -1,14 +1,15 @@
+#define ARR_SIZE(arr) ( sizeof((arr)) / sizeof((arr[0])) )
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 #include <curl/curl.h>
+#include <json-c/json.h>
 
 #include "util.h"
 #include "config.h"
-
-#include <json-c/json.h>
-#include <string.h>
 
 
 int printTitles(void){
@@ -33,15 +34,29 @@ int printTitles(void){
 	return 0;
 }
 
+
 int main(int argc, char *argv[]) {
 	
 	if( argc < 2 ) {
 		printf("usage: try '%s [query]' to make a search.\n", NAME);
 		return 1;
 	}
+
+	/* get random instance */
+	srand(time(NULL));
+	const char *INSTANCE = (INSTANCES[rand() % ARR_SIZE(INSTANCES)]);
+	printf("using instance %s\n", INSTANCE);
+	
+	/* if memory cannot be allocated */
+	if(INSTANCE == NULL) {
+		printf("Error! memory not allocated.");
+		exit(0);
+	}
+
 	char *query;
 	query = (char*) malloc(sizeof(char*) * (sizeof(*argv) + sizeof(INSTANCE)));
 	strcat(query, INSTANCE);
+	strcat(query, API_PATH);
 	
 	/* if memory cannot be allocated */
 	if(query == NULL) {
@@ -85,8 +100,8 @@ int main(int argc, char *argv[]) {
 		}
 
 		curl_easy_cleanup(curl_handle);
+		/* dealocate memory*/
 		free(chunk.memory);
-		/* dealocate memory for query */
 		free(query);
 
 		/* print titles of videos to stdout */
