@@ -17,5 +17,5 @@ install: build
 	gzip /usr/local/man/man1/$(NAME).1
 
 uninstall:
-	rm -rf /usr/bin/$(NAME)
-	rm -rf /usr/local/man/man1/$(NAME
+	rm -f /usr/bin/$(NAME)
+	rm -f /usr/local/man/man1/$(NAME).1.gz

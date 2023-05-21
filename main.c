@@ -103,7 +103,9 @@ int main(int argc, char *argv[]) {
 		free(query);
 
 		/* print titles of videos to stdout */
-		 printTitles();
+		printTitles();
+		/* cleanup files */
+		remove(QUERY_RESULT_FILE);
 	}
 
 	return 0;
