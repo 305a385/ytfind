@@ -7,7 +7,7 @@ Sorta suckless like but there really isn't much to configure
 
 ## LICENSE
 
-AGPL v3.0-Or-Later. View files named "LICENSE" in the root directory
+AGPL v3.0-Or-Later. Check file named "LICENSE" in the root directory for more info
 
 ## Build
 
