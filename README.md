@@ -1,3 +1,5 @@
+[moved to codeberg](https://codeberg.org/305a385/ytfind)
+
 # YT find
 
 A simple C program that scrapes invidious for video titles and the equivalent video IDs
